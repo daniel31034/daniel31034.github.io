@@ -1,62 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Loops</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .container {
+        display: flex;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toggle Active Class</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      .item {
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #000;
+        cursor: pointer;
+        position: relative;
+      }
 
-    .item {
-      padding: 10px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      position: relative;
-    }
+      .item.active,
+      .item:hover {
+        background: yellow;
+      }
 
-    .active {
-      background-color: yellow;
-    }
-  </style>
-</head>
+      .item .definition {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item active">
+        <p class="word">Arch</p>
+        <span class="definition">A curved structure that spans an opening and usually supports weight from above.</span>
+      </div>
+      <div class="item">
+        <p class="word">Buttress</p>
+        <span class="definition">A projecting support built against an external wall, usually to counteract the lateral thrust of a vault or arch within.</span>
+      </div>
+      <div class="item">
+        <p class="word">Cantilever</p>
+        <span class="definition">A long projecting beam or girder fixed at only one end, used in bridge construction.</span>
+      </div>
+      <div class="item">
+        <p class="word">Dome</p>
+        <span class="definition">A rounded vault forming the roof of a building or structure, typically with a circular base.</span>
+      </div>
+      <div class="item">
+        <p class="word">Facade</p>
+        <span class="definition">The front of a building, especially an imposing or decorative one.</span>
+      </div>
+    </div>
+    
 
-<body>
+    <script type="text/javascript">
+      var itemEls = document.querySelectorAll('.item');
+      console.log(itemEls);
 
-  <div class="item">Item 1</div>
-  <div class="item">Item 2</div>
-  <div class="item">Item 3</div>
-  <div class="item">Item 4</div>
+      // Iterate through elements
+      for (var i = 0; i < itemEls.length; i++) {
+        var thisItem = itemEls[i];
+        console.log(thisItem);
+        
+        // Add event listener
+        thisItem.addEventListener('click', function() {
+          // Iterate through elements
+          for (var j = 0; j < itemEls.length; j++) {
+            itemEls[j].classList.remove('active');
+          }
 
-  <script>
-    // Select all elements with class 'item'
-    var items = document.querySelectorAll('.item');
-
-    // Add click event listener to each item
-    for (var i = 0; i < items.length; i++) {
-      items[i].addEventListener('click', function () {
-        // Remove 'active' class from all items
-        for (var j = 0; j < items.length; j++) {
-          items[j].classList.remove('active');
-        }
-        // Add 'active' class to the clicked item
-        this.classList.add('active');
-      });
-    }
-  </script>
-
-</body>
-
+          console.log(this);
+          var clickedEl = this;
+          clickedEl.classList.add('active');
+        });
+      }
+    </script>
+  </body>
 </html>
-
-<!-- 
-  <img src="https://via.placeholder.com/100" alt="Item 1" class="item">
-  <img src="https://via.placeholder.com/100" alt="Item 2" class="item">
-  <img src="https://via.placeholder.com/100" alt="Item 3" class="item">
-  <img src="https://via.placeholder.com/100" alt="Item 4" class="item"> 
--->
