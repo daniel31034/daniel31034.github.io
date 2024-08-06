@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #24EF9E;
+}
+#header {
+    padding: 20px;
+}
+.header_wrap {
+    display: flex;
+    align-items: center;
+}
+.menu-button {
+    background-color: #24EF9E;
+    border: 2px solid #24EF9E;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+.menu-button:hover {
+    width: 500px;
+    background-color: #000;
+}
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+.hamburger span {
+    background-color: #000;
+    height: 3px;
+    width: 25px;
+    margin: 2px 0;
+    transition: background-color 0.3s ease;
+}
+.menu-button:hover .hamburger span {
+    background-color: #24EF9E;
+}
+nav {
+    display: flex;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.menu-button:hover nav {
+    opacity: 1;
+    width: auto;
+}
+nav ul {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+}
+nav ul li {
+    margin: 0 15px;
+}
+nav ul li a {
+    color: #24EF9E;
+    text-decoration: none;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+nav ul li a:hover {
+    color: #000;
+    background-color: #24EF9E;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
