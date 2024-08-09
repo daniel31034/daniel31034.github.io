@@ -5,13 +5,22 @@ body {
     background-color: #000;
     color: #24EF9E;
 }
+
 #header {
     padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
 }
+
 .header_wrap {
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
+
 .menu-button {
     background-color: #24EF9E;
     border: 2px solid #24EF9E;
@@ -24,10 +33,12 @@ body {
     transition: all 0.3s ease;
     overflow: hidden;
 }
+
 .menu-button:hover {
     width: 500px;
     background-color: #000;
 }
+
 .hamburger {
     display: flex;
     flex-direction: column;
@@ -37,6 +48,7 @@ body {
     height: 50px;
     flex-shrink: 0;
 }
+
 .hamburger span {
     background-color: #000;
     height: 3px;
@@ -44,9 +56,11 @@ body {
     margin: 2px 0;
     transition: background-color 0.3s ease;
 }
+
 .menu-button:hover .hamburger span {
     background-color: #24EF9E;
 }
+
 nav {
     display: flex;
     opacity: 0;
@@ -54,10 +68,12 @@ nav {
     overflow: hidden;
     transition: all 0.3s ease;
 }
+
 .menu-button:hover nav {
     opacity: 1;
     width: auto;
 }
+
 nav ul {
     list-style-type: none;
     display: flex;
@@ -65,9 +81,11 @@ nav ul {
     margin: 0;
     white-space: nowrap;
 }
+
 nav ul li {
     margin: 0 15px;
 }
+
 nav ul li a {
     color: #24EF9E;
     text-decoration: none;
@@ -77,9 +95,54 @@ nav ul li a {
     font-weight: bold;
     transition: color 0.3s ease;
 }
+
 nav ul li a:hover {
     color: #000;
     background-color: #24EF9E;
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #24EF9E;
+}   
+
+.Intro {
+    height: 300vh;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frames {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.frame_active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.frame_active span {
+    font-size: 32px;
+    padding: 10px;
+    text-align: center;
 }
