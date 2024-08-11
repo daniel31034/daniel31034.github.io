@@ -1,21 +1,34 @@
+:root {
+    --text-scale-ratio: 4vw; /* Adjust this value to change the base text size */
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #000;
     color: #24EF9E;
+    overflow-x: hidden;
 }
 
 #header {
+    width: 100%;
     padding: 20px;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
-    padding: 10px 20px;
+    align-items: center;
     transition: background-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 .header_wrap {
+    width: 100%;
+    max-width: 90vw;
+    margin: 0 auto;
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,8 +38,12 @@ body {
     background-color: #24EF9E;
     border: 2px solid #24EF9E;
     border-radius: 50px;
-    width: 50px;
-    height: 50px;
+    width: 5vw;
+    height: 5vw;
+    max-width: 50px;
+    max-height: 50px;
+    min-width: 25px;
+    min-height: 25px;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -35,7 +52,8 @@ body {
 }
 
 .menu-button:hover {
-    width: 500px;
+    max-width: 500px;
+    width: 55%;
     background-color: #000;
 }
 
@@ -44,14 +62,18 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
+    width: 5vw;
+    height: 5vw;
+    max-width: 50px;
+    max-height: 50px;
+    min-height: 10px;
     flex-shrink: 0;
 }
 
 .hamburger span {
     background-color: #000;
-    height: 3px;
+    height: 2vh;
+    max-height: 3px;
     width: 25px;
     margin: 2px 0;
     transition: background-color 0.3s ease;
@@ -141,8 +163,57 @@ nav ul li a:hover {
     transition: opacity 0.5s ease;
 }
 
+.frame_active .dek {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+}
+
 .frame_active span {
-    font-size: 32px;
+    font-size: var(--text-scale-ratio);
+    line-height: 1.2;
     padding: 10px;
     text-align: center;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --text-scale-ratio: 6vw; /* Larger text on smaller screens */
+    }
+   
+    .menu-button:hover {
+        width: 65%; /* Smaller expanded width on mobile */
+    }
+
+    nav ul li {
+        margin: 6px;
+    }
+
+    nav ul li a {
+        font-size: 11px;
+    }
+
+    nav ul li a:hover{
+        padding: 3px 7px;
+        border-radius: 5px;
+    }
+
+    .hamburger {
+        scale: 60%;
+    }
+    
+
+
+@media (min-width: 1921px) {
+    :root {
+        --text-scale-ratio: 3vw; /* Smaller text on very large screens */
+    }
+    .frame_active .dek {
+        max-width: 1600px; /* Larger max-width for 4K and above */
+    }
+
+    .menu-button {
+        scale: 100%;
+    }
 }
