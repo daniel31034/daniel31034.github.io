@@ -220,8 +220,8 @@ nav ul li a:hover {
 }
 
 .arrow {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-bottom: 7px solid #24EF9E;
   border-right: 7px solid #24EF9E;
   transform: rotate(45deg);
@@ -235,10 +235,17 @@ nav ul li a:hover {
     50% {
       transform: translateY(10px) rotate(45deg);
     }
+    90%{
+        opacity: .5;
+    }
+    100%{
+        opacity: 0;
+    }
   }
   
   .arrow:nth-child(1) {
     animation: arrow-bounce 1.5s infinite 0.5s;
+    right: 25px;
   }
   
   .arrow:nth-child(2) {
@@ -247,6 +254,7 @@ nav ul li a:hover {
   
   .arrow:nth-child(3) {
     animation: arrow-bounce 1.5s infinite 0.9s;
+    left: 25px;
   }
 
 @media (max-width: 768px) {
