@@ -2,6 +2,12 @@
     --text-scale-ratio: 4vw; /* Adjust this value to change the base text size */
 }
 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -9,7 +15,26 @@ body {
     background-color: #000;
     color: #24EF9E;
     overflow-x: hidden;
+    width: 100svw;
 }
+
+body .Intro {
+    background-image: url('images/back.png');
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 450vh;
+    position: relative;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
 #header {
     width: 100%;
@@ -131,10 +156,6 @@ nav ul li a:hover {
     color: #24EF9E;
 }   
 
-.Intro {
-    height: 300vh;
-}
-
 .sticky {
     position: sticky;
     top: 0;
@@ -176,6 +197,57 @@ nav ul li a:hover {
     text-align: center;
     display: inline-block;
 }
+
+.arrows-container {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  transition: position 0.3s ease;
+}
+
+.arrows-container.absolute {
+    position: absolute;
+}
+
+.arrow-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
+  border-bottom: 7px solid #24EF9E;
+  border-right: 7px solid #24EF9E;
+  transform: rotate(45deg);
+  margin: 0 10px;
+}
+
+@keyframes arrow-bounce {
+    0%, 100% {
+      transform: translateY(0) rotate(45deg);
+    }
+    50% {
+      transform: translateY(10px) rotate(45deg);
+    }
+  }
+  
+  .arrow:nth-child(1) {
+    animation: arrow-bounce 1.5s infinite 0.5s;
+  }
+  
+  .arrow:nth-child(2) {
+    animation: arrow-bounce 1.5s infinite 0.7s;
+  }
+  
+  .arrow:nth-child(3) {
+    animation: arrow-bounce 1.5s infinite 0.9s;
+  }
 
 @media (max-width: 768px) {
     :root {
