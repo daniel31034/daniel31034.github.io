@@ -7,27 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="_layout">
-        <header id="header" class="mode--regular">
-            <div class="header_wrap">
-                <div class="menu-button">
-                    <div class="hamburger">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <nav>
-                        <ul>
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#model">Model</a></li>
-                            <li><a href="#gallery">Gallery</a></li>
-                            <li><a href="#about">About</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="logo">LOGO</div>
-            </div>
-        </header>
+    <div id="loading-screen">
+        <div class="logo">LOGO</div>
+    </div>
+    <div id="_layout" style="visibility: visible;">
         <section class="Intro">
             <div class="sticky">
                 <div class="front-intro">                    
@@ -62,7 +45,10 @@
             
         </section>
     </div>
+    <script src="scripts/smooth-scroll.js"></script>
+    <script src="scripts/loading-screen.js"></script>
     <script src="scripts/scroll.js"></script>
     <script src="scripts/arrows-position.js"></script>
+    <script src="scripts/load-header.js"></script>
 </body>
 </html>

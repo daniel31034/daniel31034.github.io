@@ -2,10 +2,33 @@
     --text-scale-ratio: 4vw; /* Adjust this value to change the base text size */
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* For Firefox */
 * {
+    scrollbar-width: thin;
+    scrollbar-color: #24EF9E #000000;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+/* For Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #24EF9E;
+    border-radius: 20px;
+    border: 3px solid #000000;
 }
 
 body {
@@ -14,10 +37,9 @@ body {
     font-family: Arial, sans-serif;
     background-color: #000;
     color: #24EF9E;
-    overflow-x: hidden;
-    width: 100svw;
+    overflow-y: hidden;
+    /* This will be set to auto when loaded */
 }
-
 body .Intro {
     background-image: url('images/back.png');
     background-size: cover;
@@ -25,6 +47,67 @@ body .Intro {
     background-repeat: no-repeat;
     height: 450vh;
     position: relative;
+}
+
+body.loaded {
+    overflow-y: auto;
+}
+
+#_layout {
+    visibility: hidden;
+}
+
+body.loaded #_layout {
+    visibility: visible;
+}
+
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #24EF9E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: transform 0.5s ease-in-out;
+}
+
+#loading-screen .logo {
+    font-size: 48px;
+    font-weight: bold;
+    color: #000;
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+.slide-down {
+    animation: slideDown 0.5s ease-in-out forwards;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-in-out forwards;
+}
+
+
+/* Main Content Styles */
+#content {
+    min-height: 100vh;
+    background-color: #000;
+    color: #24EF9E;
+    position: relative;
+    z-index: 1;
 }
 
 .sticky {
