@@ -366,8 +366,6 @@ nav ul li a:hover {
         scale: 60%;
     }
     
-
-
 @media (min-width: 1921px) {
     :root {
         --text-scale-ratio: 3vw; /* Smaller text on very large screens */
@@ -380,7 +378,6 @@ nav ul li a:hover {
         scale: 100%;
     }
 }
-
 .marquee-container {
     overflow: hidden;
     width: 100%;
