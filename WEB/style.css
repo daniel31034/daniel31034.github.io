@@ -143,8 +143,8 @@ body.loaded #_layout {
 }
 
 .menu-button {
-    background-color: #24EF9E;
-    border: 2px solid #24EF9E;
+    background-color: #F24957;
+    border: 2px solid #730E45;
     border-radius: 50px;
     width: 5vw;
     height: 5vw;
@@ -188,7 +188,7 @@ body.loaded #_layout {
 }
 
 .menu-button:hover .hamburger span {
-    background-color: #24EF9E;
+    background-color: #F24957;
 }
 
 nav {
@@ -217,7 +217,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #24EF9E;
+    color: #F24957;
     text-decoration: none;
     font-size: 18px;
     text-transform: uppercase;
@@ -228,7 +228,7 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #000;
-    background-color: #24EF9E;
+    background-color: #F26052;
     padding: 5px 10px;
     border-radius: 5px;
 }

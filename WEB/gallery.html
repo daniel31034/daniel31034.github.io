@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dense Vertical Scrolling Image/Video Gallery</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .gallery-container {
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            margin: 1vw;
+        }
+        .gallery-column {
+            flex: 0 0 18vw;
+            overflow: hidden;
+            position: relative;
+            margin: 0 1vw;
+        }
+        .gallery-column-inner {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            animation: scroll-up linear infinite;
+            will-change: transform;
+            width: 100%;
+        }
+        .gallery-column-inner.scroll-down {
+            animation-name: scroll-down;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 18vw;
+            margin-bottom: 1vw;
+        }
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .placeholder-box {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            border: 1px solid #24ff9e;
+            box-sizing: border-box;
+        }
+        @keyframes scroll-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        @keyframes scroll-down {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-container" id="galleryContainer"></div>
+
+    <script>
+        const folderNames = ['folder1', 'folder2', 'folder3', 'folder4', 'folder5'];
+
+        async function fetchMediaFiles(folderName) {
+            try {
+                const response = await fetch(`images/Gallery/${folderName}/`);
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const links = Array.from(doc.querySelectorAll('a'));
+                return links
+                    .map(link => link.href)
+                    .filter(href => href.endsWith('.jpg') || href.endsWith('.mp4'))
+                    .map(href => href.split('/').pop());
+            } catch (error) {
+                console.error(`Error fetching files from ${folderName}:`, error);
+                return [];
+            }
+        }
+
+        function createMediaElement(item, folderName) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'gallery-item';
+
+            const isVideo = item.endsWith('.mp4');
+            const element = document.createElement(isVideo ? 'video' : 'img');
+            element.src = `images/Gallery/${folderName}/${item}`;
+            
+            if (isVideo) {
+                element.autoplay = true;
+                element.muted = true;
+                element.loop = true;
+                element.loading = 'lazy';
+            } else {
+                element.loading = 'lazy';
+            }
+
+            element.onerror = function() {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'placeholder-box';
+                wrapper.replaceChild(placeholder, element);
+            };
+
+            wrapper.appendChild(element);
+            return wrapper;
+        }
+
+        async function initializeGallery() {
+            const container = document.getElementById('galleryContainer');
+            const columnCount = 5;
+            const itemsPerColumn = 20; // Adjust this number as needed
+            const baseSpeed = 2; // 2 seconds per item
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 0; i < columnCount; i++) {
+                const column = document.createElement('div');
+                column.className = 'gallery-column';
+
+                const columnInner = document.createElement('div');
+                columnInner.className = 'gallery-column-inner';
+                if (i === 1 || i === 4) {
+                    columnInner.classList.add('scroll-down');
+                }
+
+                const folderName = folderNames[i];
+                const mediaFiles = await fetchMediaFiles(folderName);
+                
+                // Create a loop of media elements
+                const mediaElements = [];
+                for (let j = 0; j < itemsPerColumn; j++) {
+                    const fileIndex = j % mediaFiles.length;
+                    mediaElements.push(createMediaElement(mediaFiles[fileIndex], folderName));
+                }
+
+                // Add elements to the column
+                mediaElements.forEach(el => {
+                    columnInner.appendChild(el);
+                });
+
+                // Duplicate elements for seamless looping
+                mediaElements.forEach(el => {
+                    columnInner.appendChild(el.cloneNode(true));
+                });
+
+                // Calculate animation duration
+                const animationDuration = itemsPerColumn * baseSpeed;
+                columnInner.style.animationDuration = `${animationDuration}s`;
+
+                column.appendChild(columnInner);
+                fragment.appendChild(column);
+
+                column.addEventListener('mouseenter', () => {
+                    columnInner.style.animationPlayState = 'paused';
+                });
+
+                column.addEventListener('mouseleave', () => {
+                    columnInner.style.animationPlayState = 'running';
+                });
+            }
+
+            container.appendChild(fragment);
+        }
+
+        // Use requestIdleCallback for non-critical initialization
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                initializeGallery().catch(console.error);
+            });
+        } else {
+            setTimeout(() => {
+                initializeGallery().catch(console.error);
+            }, 1);
+        }
+    </script>
+    <script src="scripts/load-header.js"></script>
+</body>
+</html>
