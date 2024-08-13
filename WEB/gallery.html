@@ -18,7 +18,7 @@
             margin: 1vw;
         }
         .gallery-column {
-            flex: 0 0 18vw;
+            flex: 0 0 calc(18vw - 2vw);
             overflow: hidden;
             position: relative;
             margin: 0 1vw;
@@ -36,20 +36,21 @@
         }
         .gallery-item {
             width: 100%;
-            height: 18vw;
             margin-bottom: 1vw;
         }
         .gallery-item img, .gallery-item video {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
         }
         .placeholder-box {
             width: 100%;
-            height: 100%;
+            height: 0;
+            padding-bottom: 100%;
             background-color: black;
             border: 1px solid #24ff9e;
             box-sizing: border-box;
+            margin-bottom: 1vw;
         }
         @keyframes scroll-up {
             0% { transform: translateY(0); }
@@ -74,10 +75,16 @@
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(text, 'text/html');
                 const links = Array.from(doc.querySelectorAll('a'));
-                return links
+                const mediaFiles = links
                     .map(link => link.href)
-                    .filter(href => href.endsWith('.jpg') || href.endsWith('.mp4'))
-                    .map(href => href.split('/').pop());
+                    .filter(href => /\.(jpg|jpeg|png|mp4)$/i.test(href))
+                    .map(href => {
+                        const parts = href.split('/');
+                        return parts[parts.length - 1];
+                    });
+                
+                console.log(`Fetched files from ${folderName}:`, mediaFiles);
+                return mediaFiles;
             } catch (error) {
                 console.error(`Error fetching files from ${folderName}:`, error);
                 return [];
@@ -88,7 +95,7 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'gallery-item';
 
-            const isVideo = item.endsWith('.mp4');
+            const isVideo = item.toLowerCase().endsWith('.mp4');
             const element = document.createElement(isVideo ? 'video' : 'img');
             element.src = `images/Gallery/${folderName}/${item}`;
             
@@ -97,11 +104,13 @@
                 element.muted = true;
                 element.loop = true;
                 element.loading = 'lazy';
+                element.playsinline = true;
             } else {
                 element.loading = 'lazy';
             }
 
             element.onerror = function() {
+                console.error(`Failed to load: ${element.src}`);
                 const placeholder = document.createElement('div');
                 placeholder.className = 'placeholder-box';
                 wrapper.replaceChild(placeholder, element);
@@ -131,6 +140,11 @@
                 const folderName = folderNames[i];
                 const mediaFiles = await fetchMediaFiles(folderName);
                 
+                if (mediaFiles.length === 0) {
+                    console.warn(`No media files found in ${folderName}`);
+                    continue;
+                }
+
                 // Create a loop of media elements
                 const mediaElements = [];
                 for (let j = 0; j < itemsPerColumn; j++) {
