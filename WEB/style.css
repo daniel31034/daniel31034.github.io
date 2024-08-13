@@ -346,7 +346,7 @@ nav ul li a:hover {
     }
    
     .menu-button:hover {
-        width: 65%; /* Smaller expanded width on mobile */
+        width: 50%; /* Smaller expanded width on mobile */
     }
 
     nav ul li {
